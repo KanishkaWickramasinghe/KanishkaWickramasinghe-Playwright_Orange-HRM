@@ -54,7 +54,7 @@ export class HomePage{
     async filterFromSideMenu(inputVal:string){
         await this.inputSearch.click();
         await this.inputSearch.clear();
-        await this.inputSearch.pressSequentially(inputVal,{delay:1000});
+        await this.inputSearch.pressSequentially(inputVal,{delay:1000});       
     }
 
     

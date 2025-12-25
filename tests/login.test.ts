@@ -1,8 +1,8 @@
 import {test} from '@playwright/test'
-import { Login } from '../pages/login.spec'
+import { Login } from '../pages/login.page'
 import dataurls from '../data/userDataUrls.json'
 import credentials from '../data/loginCredentials.json'
-import { HomePage } from '../pages/homePage.spec'
+import { HomePage } from '../pages/homePage.page'
 
 test.describe("Testing of login scenarios",()=>{
     
