@@ -9,15 +9,16 @@ export class HomePage{
     readonly dropdownArrow:Locator;
     readonly vacancyDropdownOption:Locator;
     readonly inputSearch:Locator;
+
     
     constructor(page:Page){
         this.page=page;
         this.pageHeader=page.locator(".oxd-topbar-header-breadcrumb-module")
-        this.sideMenuItems= page.getByRole("listitem");// page.locator(".oxd-main-menu-item")
+        this.sideMenuItems= page.locator("//span[@class='oxd-text oxd-text--span oxd-main-menu-item--name']/parent::a");// page.locator(".oxd-main-menu-item")
         this.dropdownVacancy=page.locator(".oxd-select-wrapper");
-        this.dropdownArrow=page.locator(".oxd-select-text--after");
+        this.dropdownArrow=page.locator("//label[text()='Vacancy']/parent::div/following-sibling::div//*[@class='oxd-select-text--after']");
         this.vacancyDropdownOption=page.getByRole("option");
-        this.inputSearch=page.locator("//input[@placeholder='Search']")
+        this.inputSearch=page.locator("//input[@placeholder='Search']");
     }
 
     async verifyHomePageHeader(headerText:string){
@@ -32,11 +33,12 @@ export class HomePage{
         }
     }
 
-    async navigateToRecruitment(){
+    async navigateToRecruitment(menuItemText:string){
         for(const item of await this.sideMenuItems.all()){
             const text = await item.textContent()
-            if(text==="Recruitment"){
-                console.log(text)
+            console.log(`--------Before if -----${text}--------------`)
+            if(text==='Recruitment'){
+                console.log(`-------------${text}--------------`);
                 await item.click();
                 console.log("---------- Recruitment option selected -------------")
                 break;
@@ -46,8 +48,7 @@ export class HomePage{
 
     async selectVacancyForRecruitment(vacancy:string){
         const vacancyDrp=this.dropdownArrow
-        //await vacancyDrp.nth(1).selectOption({label:'Junior Account Assistant'} )
-        await vacancyDrp.nth(1).click()
+        await vacancyDrp.click()
         await this.vacancyDropdownOption.filter({hasText:vacancy}).click()
     }
 
